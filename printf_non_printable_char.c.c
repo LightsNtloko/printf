@@ -3,7 +3,7 @@
 #include <stdio.h>
 
 /**
- * _printf_nonprint - The function that prints non printable char
+ * printf_nonprint - The function that prints non printable char
  * @format: The format of the string
  * @...: The variable number of arguments
  *
@@ -25,6 +25,7 @@ int printf_nonprint(const char *format, ...)
 			if (*format == 'S')
 			{
 				char *str = va_arg(args, char *);
+
 				count += print_string_containing_escapes(str);
 			}
 		}
@@ -33,10 +34,10 @@ int printf_nonprint(const char *format, ...)
 			_putchar(*format);
 			count++;
 		}
-
-		va_end(args);
-		return (count);
+		format++;
 	}
+	va_end(args);
+	return (count);
 }
 
 /**
@@ -67,8 +68,13 @@ int print_string_containing_escapes(char *str)
 	return (count);
 }
 
+/**
+ * main - Check the code
+ *
+ * Return: Always 0.
+ */
 int main(void)
 {
-	_printf("%S\n", "Best\nSchool");
+	printf_nonprint("%S\n", "Best\nSchool");
 	return (0);
 }

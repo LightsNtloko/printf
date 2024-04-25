@@ -1,12 +1,12 @@
 #include "main.h"
 
 /**
- * _puts - A function that prints a string
+ * _printf_str - A function that prints a string
  * @kay: The string t be printed
  *
- * Return: void
+ * Return: The length of the string
  */
-void printf_string(va_list kay)
+int _printf_str(va_list kay)
 {
 	char *str;
 	int k;
@@ -19,13 +19,12 @@ void printf_string(va_list kay)
 		length = _strlen(str);
 		for (k = 0; k < length; k++)
 			_putchar(str[k]);
-		return (length);
 	}
 	else
 	{
 		length = _strlen(str);
 		for (k = 0; k < length; k++)
 			_putchar(str[k]);
-		return (length);
 	}
+	return (length);
 }

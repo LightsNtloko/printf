@@ -3,13 +3,13 @@
 #include <stdio.h>
 
 /**
- * _printf_uppercase - The function thaat prints uppercase characters
- * @*format: The format of the string
+ * printf_uppercase - The function that prints uppercase characters
+ * @format: The format of the string
  * @...: The variable number of arguments
  *
- * Reurn: The number of char printed (excluding the null byte)
+ * Return: The number of char printed (excluding the null byte)
  */
-int _printf_uppercase(const char *format, ...)
+int printf_uppercase(const char *format, ...)
 {
 	va_list args;
 	int count = 0;
@@ -24,6 +24,7 @@ int _printf_uppercase(const char *format, ...)
 			if (*format == 'X')
 			{
 				unsigned int no = va_arg(args, unsigned int);
+
 				count += printf("%X", no);
 			}
 		}
@@ -39,8 +40,13 @@ int _printf_uppercase(const char *format, ...)
 	return (count);
 }
 
+/**
+ * main - Check the code
+ *
+ * Return: Always 0.
+ */
 int main(void)
 {
-	_printf("%X\n", 255);
+	printf_uppercase("%X\n", 255);
 	return (0);
 }

@@ -9,7 +9,7 @@
  * @no: The number to print
  * Return: The number of characters printed
  */
-static int print_number_with_zero_padding(int width, int no)
+int print_number_with_zero_padding(int width, int no)
 {
 	return (printf("%0*d", width, no));
 }
@@ -20,7 +20,7 @@ static int print_number_with_zero_padding(int width, int no)
  * @args: The variable number og arguments
  * @count: The pointer of characters to be printed
  */
-static void handle_zero_flag(const char **format, va_list args, int *count)
+void handle_zero_flag(const char **format, va_list args, int *count)
 {
 	int width = 0;
 
@@ -50,6 +50,7 @@ int printf_zero_flag(const char *format, ...)
 {
 	va_list args;
 	int count = 0;
+	int zero_flag = 0;
 
 	va_start(args, format);
 
@@ -58,9 +59,6 @@ int printf_zero_flag(const char *format, ...)
 		if (*format == '%')
 		{
 			format++;
-
-			int zero_flag = 0;
-
 			if (*format == '0')
 			{
 				zero_flag = 1;
@@ -91,7 +89,7 @@ int printf_zero_flag(const char *format, ...)
  */
 int main(void)
 {
-	printf_0_flag("%05d\n", 123);
-	printf_0_flag("%d\n", 123);
+	printf_zero_flag("%05d\n", 123);
+	printf_zero_flag("%d\n", 123);
 	return (0);
 }

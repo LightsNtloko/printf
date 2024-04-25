@@ -3,13 +3,13 @@
 #include <stdio.h>
 
 /**
- * _printf - Th function that prints an unsigned integer
+ * _printf_unsigned - Th function that prints an unsigned integer
  * @format: The format of te string
  * @...: The variable number or args
  *
  * Return: The number of char printed (excluding the null byte)
  */
-int print_unsigned(const char *format, ...)
+int _printf_unsigned(const char *format, ...)
 {
 	va_list args;
 	int count = 0;
@@ -25,7 +25,8 @@ int print_unsigned(const char *format, ...)
 
 			if (*format == 'u')
 			{
-				unsigned int no = va_arg(args. unsigned int);
+				unsigned int no = va_arg(args, unsigned int);
+
 				count += printf("%u", no);
 			}
 		}
@@ -34,8 +35,8 @@ int print_unsigned(const char *format, ...)
 			_putchar(*format);
 			count++;
 		}
-
-		va_end(args);
-		return (count);
+		format++;
 	}
+	va_end(args);
+	return (count);
 }

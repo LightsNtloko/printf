@@ -3,7 +3,7 @@
 #include <stdio.h>
 
 /**
- * _printf_lowercase - The function that prints lowercase charracters
+ * printf_lowercase - The function that prints lowercase charracters
  * @format: The format of the string
  * @...: The variable number of arguments
  * Return: The number of char printed (Excluding the null byte)
@@ -24,6 +24,7 @@ int printf_lowercase(const char *format, ...)
 			if (*format == 'x')
 			{
 				unsigned int no = va_arg(args, unsigned int);
+
 				count += printf("%x", no);
 			}
 		}
@@ -32,13 +33,19 @@ int printf_lowercase(const char *format, ...)
 			_putchar(*format);
 			count++;
 		}
-		va_end(args);
-		return (count);
+		format++;
 	}
+	va_end(args);
+	return count;
 }
 
-int main(voud)
+/**
+ * main - Check the code
+ *
+ * Return: Always 0.
+ */
+int main(void)
 {
-	_printf("%x\n", 256);
+	printf_lowercase("%x\n", 256);
 	return (0);
 }

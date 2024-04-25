@@ -2,16 +2,15 @@
 #include <stdarg.h>
 
 /**
- * print_binary - A function that conversts unsigned n to binary
+ * printf_binary - A function that conversts unsigned n to binary
  * @format: The format of the string
  * @...: The variable number of arguments
  *
  * Return: The integer argument
  */
-int print_binary(const char *format, ...)
+int printf_binary(const char *format, ...)
 {
 	va_list args;
-
 	int count = 0;
 
 	va_start(args, format);
@@ -21,17 +20,23 @@ int print_binary(const char *format, ...)
 		if (*format == '%')
 		{
 			format++;
-
 			if (*format == 'b')
 			{
-				count += print_binary(va_arg(args, unsigned int));
+				unsigned int num = va_arg(args, unsigned int);
+				unsigned int mask = 1 << (sizeof(unsigned int) * 8 - 1);
+				
+				while (mask)
+				{
+					_putchar((num & mask) ? '1' : '0');
+					count++;
+					mask >>= 1;
+				}
 			}
-
 			else
 			{
 				_putchar('%');
 				_putchar(*format);
-				count += 9;
+				count += 2;
 			}
 		}
 		else
@@ -41,6 +46,6 @@ int print_binary(const char *format, ...)
 		}
 		format++;
 	}
-	va_end(agrs);
+	va_end(args);
 	return (count);
 }

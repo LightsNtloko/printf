@@ -3,13 +3,13 @@
 #include <stdio.h>
 
 /**
- * _print_octal - The funtion that prints an octal value
+ * _printf_octal - The funtion that prints an octal value
  * @format: The format of the string
  * @...: The vaiable number of arguments
- * 
+ *
  * Return: The number of char to be printed (exluding null byte)
  */
-int print_octal(const char *format, ...)
+int _printf_octal(const char *format, ...)
 {
 	va_list args;
 	int count = 0;
@@ -23,7 +23,8 @@ int print_octal(const char *format, ...)
 			format++;
 			if (*format == 'o')
 			{
-				unsigned in no = va_arg(args, unsigned int);
+				unsigned int no = va_arg(args, unsigned int);
+
 				count += printf("%o", no);
 			}
 		}
@@ -40,8 +41,13 @@ int print_octal(const char *format, ...)
 	return (count);
 }
 
+/**
+ * main - Check the code
+ *
+ * Return: Always 0.
+ */
 int main(void)
 {
-	_printf("%o\n", 246);
+	printf("%o\n", 246);
 	return (0);
 }

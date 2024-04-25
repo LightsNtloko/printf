@@ -3,26 +3,42 @@
 #include <stdio.h>
 
 /**
- * _print_width - A function that prints the width of a string
+ * _printf_width - A function that prints the width of a string
  * @format: The format of the string
  * @...: The variable number of arguments
  *
  * Return: The number or char printed (excluding the null byte)
  */
-int _printf_width(const char, *format, ...)
+int _printf_width(const char *format, ...)
 {
 	va_list args;
-	count = 0;
+
+	int count = 0;
 
 	va_start(args, format);
+	count = process_format(format, args);
+	va_end(args);
+
+	return (count);
+}
+
+/**
+ * process_format - Processes the format string for width formatting
+ * @format: The format string
+ * @args: The variable argument list
+ * Return: The number of characters printed (excluding the null byte)
+ */
+int process_format(const char *format, va_list args)
+{
+	int count = 0;
+	int width = 0;
 
 	while (*format)
 	{
 		if (*format == '%')
 		{
 			format++;
-
-			int width = 0;
+			width = 0;
 
 			if (*format >= '0' && *format <= '9')
 			{
@@ -32,27 +48,7 @@ int _printf_width(const char, *format, ...)
 					format++;
 				}
 			}
-
-			if (*format == 'd' || *format == 'i')
-			{
-				int no = va_arg(args, int);
-				count += printf("%*d", width, no);
-			}
-			else if (*format == 'u')
-			{
-				unsigned int no = va_arg(args, unsigned int);
-				count += printf("%*u", width, no);
-			}
-			else if (*format == 'o')
-			{
-				unsigned int no = va_arg(args, unsigned int);
-				count += printf("%*o", width, no);
-			}
-			else if (*format == 'x' || *format == 'X')
-			{
-				unsigned int no = va_arg(args, unsigned int);
-				count += printf("%*x", width, num);
-			}
+			count += handle_format(*format, args, width);
 		}
 		else
 		{
@@ -61,8 +57,43 @@ int _printf_width(const char, *format, ...)
 		}
 		format++;
 	}
-
 	va_end(args);
+	return (count);
+}
+
+/**
+ * handle_format - Handle different format specifiers
+ * @specifier: The format specifier
+ * @args: The variable argument list
+ * @width: The width
+ *
+ * Return: The number of characters printed
+ */
+int handle_format(char specifier, va_list args, int width)
+{
+	int count = 0;
+
+	switch (specifier)
+	{
+	case 'd':
+	case 'i':
+		count += printf("%*d", width, va_arg(args, int));
+		break;
+	case 'u':
+		count += printf("%*u", width, va_arg(args, unsigned int));
+		break;
+	case 'o':
+		count += printf("%*o", width, va_arg(args, unsigned int));
+		break;
+	case 'X':
+		count += printf("%*x", width, va_arg(args, unsigned int));
+		break;
+	default:
+		_putchar('%');
+		_putchar(specifier);
+		count += 2;
+		break;
+	}
 	return (count);
 }
 
@@ -73,10 +104,10 @@ int _printf_width(const char, *format, ...)
  */
 int main(void)
 {
-	_printf("%10d\n", 123);
-	_printf("%5u\n", 1234);
-	_printf("%8o\n", 123);
-	_printf("%6X\n", 255);
-	
+	_printf_width("%10d\n", 123);
+	_printf_width("%5u\n", 1234);
+	_printf_width("%8o\n", 123);
+	_printf_width("%6X\n", 255);
+
 	return (0);
 }
